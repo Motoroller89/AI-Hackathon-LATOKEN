@@ -16,25 +16,3 @@ def get_fraudulent_for_control_data_percentage():
         df1.drop(col + '_y', axis=1, inplace=True)
 
     df1.to_csv('output.csv', index=False)
-
-
-
-def get():
-    df_true = pd.read_csv('output.csv')
-
-    df_ai = pd.read_csv('predicted_fraudulent.csv')
-
-
-    df = pd.DataFrame({
-        'fraudulent1': df_true['fraudulent'],
-        'fraudulent2': df_ai['fraudulent'],
-    })
-
-    df['comparison'] = df.apply(lambda row: 1 if row['fraudulent1'] != row['fraudulent2'] else 0, axis=1)
-
-    # считаем количество '1' в столбце 'comparison'
-    count = df['comparison'].sum()
-
-    print(f"Количество '1' в столбце 'comparison': {count}")
-
-    print((len(df) - count) / len(df) )
